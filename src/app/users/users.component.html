@@ -1,0 +1,33 @@
+<div class="table-responsive">
+  <table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Membership</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.name }}</td>
+        <td>{{ user.gender }}</td>
+        <td>{{ user.membership }}</td>
+        <td>{{ user.price }}</td>
+        <!-- <td>{{ user.status ? "Active" : "Inactive" }}</td> -->
+        <td>
+          <button class="btn btn-danger btn-sm" (click)="OnDeleteClicked(user)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<app-confirm-delete
+  *ngIf="showDeleteAlert"
+  [userToDelete]="userToDelete"
+  (OnConfirmation)="onUserDeletionConfirmed($event)"
+></app-confirm-delete>

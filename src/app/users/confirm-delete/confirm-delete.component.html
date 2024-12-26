@@ -1,0 +1,13 @@
+<div class="modall">
+  <div class="modall-content">
+    <p>Are you sure you want to delete the user: {{ userToDelete.name }}</p>
+    <div class="modall-actions">
+      <button class="btn-ok" (click)="onConformationBtnClicked(true)">
+        OK
+      </button>
+      <button class="btn-cancel" (click)="onConformationBtnClicked(false)">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
