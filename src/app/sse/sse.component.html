@@ -1,0 +1,24 @@
+<p-table [value]="boats" [paginator]="false" [rows]="10" [autoLayout]="true">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Id</th>
+      <th>Boat Name</th>
+      <th>Status</th>
+      <th>Date</th>
+      <th>Boarding Officer</th>
+      <th>Starting Point</th>
+      <th>Destination</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-boat>
+    <tr>
+      <td>{{ boat.id }}</td>
+      <td>{{ boat.boatName }}</td>
+      <td>{{ boat.status }}</td>
+      <td>{{ boat.date | date : "short" }}</td>
+      <td>{{ boat.boardingOfficer }}</td>
+      <td>{{ boat.startingPoint }}</td>
+      <td>{{ boat.destination }}</td>
+    </tr>
+  </ng-template>
+</p-table>
