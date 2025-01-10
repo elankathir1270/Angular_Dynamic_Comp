@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TableModule } from 'primeng/table';
 import { CheckboxModule } from 'primeng/checkbox';
 import { SseComponent } from './sse/sse.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { SseComponent } from './sse/sse.component';
     UsersComponent,
     ConfirmDeleteComponent,
     SseComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
