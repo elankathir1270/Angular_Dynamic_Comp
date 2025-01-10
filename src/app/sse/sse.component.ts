@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DashboardService } from '../Services/dashboard.service';
+import { SseService } from '../Services/sse.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-sse',
@@ -9,26 +10,45 @@ import { DashboardService } from '../Services/dashboard.service';
   styleUrl: './sse.component.css',
 })
 export class SseComponent implements OnInit {
-  boats: any[] = [];
+  DataStream: any;
 
-  constructor(private dashboardService: DashboardService) {}
+  constructor(private sseService: SseService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.dashboardService.getServerSentEvents().subscribe({
+    this.sseService.getServerSentEvents().subscribe({
       next: (data) => this.updateTable(data),
       complete: () => console.log('All mock data received.'),
       error: (err) => console.error('Error receiving mock data:', err),
     });
   }
 
+  mapToTableData(newData: any): any {
+    return {
+      id: newData.id,
+      title: newData.title,
+      type: newData.type,
+      user: newData.user,
+      server_name: newData.server_name,
+    };
+  }
+
   updateTable(newData: any): void {
-    const index = this.boats.findIndex((boat) => boat.id === newData.id);
-    if (index !== -1) {
+    console.log('Received data:', newData);
+
+    const formattedData = this.mapToTableData(newData);
+    console.log('Format data:', formattedData);
+
+    const index = this.DataStream.findIndex(
+      (data) => data?.id === formattedData?.id
+    );
+    if (index !== -1 && this.DataStream[index]) {
       // Update existing row
-      this.boats[index] = newData;
+      this.DataStream[index] = formattedData;
     } else {
       // Add new row
-      this.boats.push(newData);
+      this.DataStream.push(formattedData);
     }
+
+    this.DataStream = [...this.DataStream];
   }
 }
